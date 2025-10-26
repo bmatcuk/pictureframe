@@ -46,7 +46,7 @@ if displaying_img:
 
 # get random images from PhotoPrism
 next_image_id = int(re.search(r'\d+', images[-1]).group()) + 1 if len(images) > 0 else 0
-photoprism_url = 'http://photoprism.lan:2342'
+photoprism_url = os.environ['PHOTOPRISM_URL']
 headers = {'X-Auth-Token': os.environ['PHOTOPRISM_TOKEN']}
 params = {
     'q': 'landscape:yes',
