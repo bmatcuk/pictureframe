@@ -350,9 +350,28 @@ gpio -g mode 4 out
 ```
 
 Feel free to disconnect the USB-C power whenever the battery has finished
-charging (I believe the blue LED turns off). Come the next time it is scheduled
-to boot, it should, hopefully, turn on, display an image, grab a new one, and
-shutdown.
+charging (I believe the blue LED turns off). Keep an eye on it for the next
+scheduled boot: it should, hopefully, turn on, display an image, grab a new
+one, and shutdown all by itself.
+
+
+## Building a Frame
+I ordered a custom frame from a company called Frame Destination, specifically
+[this
+frame](https://www.framedestination.com/prod/frame/wood-frame-profile-865.html).
+But, any frame with a "rabbet" of around an inch plus space for any glass
+and/or matting that you're using will work. The "rabbet" is the depth of the
+frame, from the back to the lip that holds in the glass in the front. This
+particular frame has a rabbet of 1 3/8" - an inch for the electronics, a little
+more than 1/8" for the glass and matting, and a little more than 1/8" of extra
+space.
+
+I ordered the matting to have an opening of 10 3/8" x 7 11/16" with a 1/8"
+"overlap" (ie, actual dimensions of the opening are 10 1/8" x 7 7/16") and one
+inch borders, making the total outside dimensions of the mat 12 3/8" x 9
+11/16".
+
+Now I needed a way to mount everything inside the frame.
 
 
 [extra long headers]: https://www.amazon.com/dp/B07DJY6HT8?ref=ppx_yo2ov_dt_b_fed_asin_title&th=1
