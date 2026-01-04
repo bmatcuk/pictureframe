@@ -356,29 +356,51 @@ one, and shutdown all by itself.
 
 
 ## Building a Frame
+Everything below is based on this drawing of the Inky:
+
+![Inky Impression 13.3" Drawing](inky-impression-13-3-drawing.webp)
+
 I ordered a custom frame from a company called Frame Destination, specifically
-[this
-frame](https://www.framedestination.com/prod/frame/wood-frame-profile-865.html).
-But, any frame with a "rabbet" of around an inch plus space for any glass
-and/or matting that you're using will work. The "rabbet" is the depth of the
-frame, from the back to the lip that holds in the glass in the front. This
-particular frame has a rabbet of 1 3/8" - an inch for the electronics, a little
-more than 1/8" for the glass and matting, and a little more than 1/8" of extra
-space.
+[this frame]. But, any _wooden_ frame with a "rabbet" of around an inch plus
+space for any glass and/or matting that you're using will work. The "rabbet" is
+the depth of the frame, from the back to the lip that holds in the glass in the
+front. This particular frame has a rabbet of 1 3/8" - an inch for the
+electronics, a little more than 1/8" for the glass and matting, and a little
+more than 1/8" of extra space. The frame must be wooden because the mounting
+brackets (see below) use wood screws to fasten to the frame.
 
-I ordered the matting to have an opening of 10 3/8" x 7 11/16" with a 1/8"
-"overlap" (ie, actual dimensions of the opening are 10 1/8" x 7 7/16") and one
-inch borders, making the total outside dimensions of the mat 12 3/8" x 9
-11/16".
+According to the drawing, the screen's display area is 270.4mm x 202.8mm (ie,
+roughly 10 5/8" x 7 15/16"). I ordered the matting to have an overlap of 1/8"
+(ie, actual dimensions of the opening is 1/8" smaller on all four sides, making
+it 10 3/8" x 7 11/16") and one inch borders, making the total outside
+dimensions of the _mat_, and, hence, the _inside_ dimensions of the frame, 12
+3/8" x 9 11/16". NOTE: one inch borders is pretty much the smallest you can go,
+because the Inky's circuit board is larger than the screen itself.
 
-Now I needed a way to mount everything inside the frame.
+Next, I designed and 3D printed some mounting brackets using [FreeCAD]. These
+mounting brackets use 4x M2x4 [heat set inserts] with 4x M2x6 [machine screws]
+to fasten the Inky to the brackets, and 4x #6 x 1/2" [wood screws] to mount the
+brackets to the frame. All links go to the exact sets I ordered.
+
+The original FreeCAD file is provided as `mounting.FCStd`. It's fully
+parametric, so, if your frame or associated hardware is a little different than
+mine, you should be able to tweak the numbers to get a print that will work for
+you. All of the relevant numbers to tweak are in the spreadsheet called
+"Dimensions". Note: in this spreadsheet, the words "left" and "right" are
+relative to the front of the Inky. Since you'll likely be looking at the
+mounting brackets from the back, left and right will be reversed.
 
 
 [extra long headers]: https://www.amazon.com/dp/B07DJY6HT8?ref=ppx_yo2ov_dt_b_fed_asin_title&th=1
+[FreeCAD]: https://www.freecad.org/
+[heat set inserts]: https://www.amazon.com/dp/B0D41PW4GC
 [Inky Impression 13.3"]: https://shop.pimoroni.com/products/inky-impression-7-3?variant=55186435277179
 [LiIon 3.7V 6600mAh]: https://www.adafruit.com/product/353
+[machine screws]: https://www.amazon.com/dp/B0CFV28NZB
 [PhotoPrism]: https://www.photoprism.app/
 [Raspberry Pi]: https://www.raspberrypi.com/
 [Raspberry Pi Imager]: https://www.raspberrypi.com/software/
+[this frame]: https://www.framedestination.com/prod/frame/wood-frame-profile-865.html
 [Witty Pi 4 L3V7]: https://www.adafruit.com/product/5705
+[wood screws]: https://www.amazon.com/dp/B0DB1DDK4N
 [Zero 2 W]: https://www.raspberrypi.com/products/raspberry-pi-zero-2-w/
