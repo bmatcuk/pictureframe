@@ -1,6 +1,8 @@
 # pictureframe
 An eink picture frame that automatically grabs photos from [PhotoPrism].
 
+![Finished Frame](front.jpg)
+
 Hardware requirements:
 * A [Raspberry Pi], _without_ headers - a [Zero 2 W] works
 * Some [extra long headers]
@@ -400,6 +402,10 @@ inserted and cooled, screw the Inky to the mounting bracket from the front side
 of the Inky. Then, place the whole assembly into your frame, ensure the Inky's
 screen is lined up properly, and screw the mounting brackets to the frame using
 wood screws.
+
+Here's a photo of the back, once everything is mounted:
+
+![Assembled Frame](back.jpg)
 
 
 [extra long headers]: https://www.amazon.com/dp/B07DJY6HT8?ref=ppx_yo2ov_dt_b_fed_asin_title&th=1
