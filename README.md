@@ -252,18 +252,28 @@ As your user, create a file called `~/pictureframe.sh`:
 
 source ~/.virtualenvs/pimoroni/bin/activate
 cd ~/pictureframe
+git pull
 ./pictureframe.py
 ```
 
 ...and make it executable (`chmod +x pictureframe.sh`). This script will
 activate the python environment and then run the `pictureframe.py` script.
 
-Now, as _root_, create a file called `~/pictureframe.sh`:
+Note: this script will also pull the latest code. Since we're going to
+configure the RPi to shutdown immediately after updating the screen, it's
+difficult to make any changes once we have everything setup. This will let us
+make changes by pushing to the git repo. If you don't trust me to keep this
+repo free of nefarious code (_I_ think I'm pretty trustworthy, but, you
+probably shouldn't trust randos from the internet), you could fork it and pull
+from your own repo, or you could just remove the `git pull` line from this
+script.
+
+Now, as _root_, create a different file called `~/pictureframe.sh`:
 ```bash
 source wittypi/utilities.sh
 
 # update picture
-sudo -H -u <USER> /home/<USER>/pictureframe.sh
+sudo -H -i -u <USER> /home/<USER>/pictureframe.sh
 
 # get voltage
 if [ $(get_power_mode) -ne 0 ]; then
@@ -282,26 +292,36 @@ following:
 # display an image
 /root/pictureframe.sh
 
-# shutdown the RPi
-# this MUST end in a &
-bash -c 'sleep 5; gpio -g mode 4 out' &
+if [ -f /boot/stay-on ]; then
+  rm /boot/stay-on
+else
+  # shutdown the RPi
+  # this MUST end in a &
+  bash -c 'sleep 5; gpio -g mode 4 out' &
+fi
 ```
 
 The Witty Pi software will run this script during boot, but before the Witty Pi
 has fully finished configuring a couple of its own things. This script will run
-the previous script, which will display an image and print the battery voltage,
-then cause the RPi to shutdown. However, this is a little hacky. As I said, the
-Witty Pi software runs this script before it has fully finished setting things
-up. So, the last line runs a short bash script in the background (that `&` at
-the end). This script waits 5 seconds for the rest of the Witty Pi software to
-run, and then sets pin 4 as an output pin. Why does this cause the RPi to
-shutdown? Because the Witty Pi signals that the RPi should shutdown by pulling
-pin 4 low. By setting this to an output pin, it defaults to low, which the
-Witty Pi software interprets as a shutdown command from the Witty Pi itself,
-and it runs the shutdown procedure.
+the previous script, which will display an image and print the battery voltage.
+Afterward, it will check for the existence of the file `/boot/stay-on`. If this
+file exists, it will delete it and do nothing else. If the file does _not_
+exist, this script will cause the RPi to shutdown.
 
-Seems hacky, but it's actually a recommended way to shutdown the RPi, according
-to the Witty Pi documentation.
+However, the way it causes the RPi to shutdown is a little hacky. As I said,
+the Witty Pi software runs this script before it has fully finished setting
+things up. So, the last line runs a short bash script in the background (that
+`&` at the end). This script waits 5 seconds for the rest of the Witty Pi
+software to run, and then sets pin 4 as an output pin. Why does this cause the
+RPi to shutdown? Because the Witty Pi signals that the RPi should shutdown by
+pulling pin 4 low. By setting this to an output pin, it defaults to low, which
+the Witty Pi software interprets as a shutdown command from the Witty Pi
+itself, and it runs the shutdown procedure. Seems hacky, but it's actually a
+recommended way to shutdown the RPi, according to the Witty Pi documentation.
+
+The `/boot/stay-on` file lets us easily prevent the automatic shutdown, should
+we ever want to ssh to the RPi to adjust something. See the "Maintenance"
+section below for the procedure.
 
 Now we need to make sure the Witty Pi has the right current time. Still as
 root, run the following:
@@ -406,6 +426,33 @@ wood screws.
 Here's a photo of the back, once everything is mounted:
 
 ![Assembled Frame](back.jpg)
+
+
+## Maintenance
+The `/root/wittypi/afterStartup.sh` script normally shuts down the RPi
+immediately after updating the screen. However, we setup the script to skip
+this automatic shutdown if a file called `/boot/stay-on` exists. This way, we
+can ssh into the RPi to do some maintenance or change things if we want. Here's
+the procedure:
+1. Disconnect the battery.
+2. Remove the SD card and connect it to a computer.
+3. Create an empty file called `stay-on` in the `boot` partition.
+4. Unmount the SD card, and replace it in the RPi.
+5. Reconnect the battery. The RPi will boot, but stay running.
+6. ssh to the RPi to do whatever maintenance was needed.
+7. Ensure the WittyPi has the correct time, and shutdown. As root:
+```bash
+# sync time:
+cd ~/wittypi
+./wittyPi.sh
+# Select "Synchronize with network time", then select "Exit"
+
+# set the schedule:
+./runScript.sh
+
+# shutdown:
+gpio -g mode 4 out
+```
 
 
 [extra long headers]: https://www.amazon.com/dp/B07DJY6HT8?ref=ppx_yo2ov_dt_b_fed_asin_title&th=1
