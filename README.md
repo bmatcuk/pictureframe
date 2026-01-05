@@ -292,8 +292,8 @@ following:
 # display an image
 /root/pictureframe.sh
 
-if [ -f /boot/stay-on ]; then
-  rm /boot/stay-on
+if [ -f /boot/firmware/stay-on ]; then
+  rm /boot/firmware/stay-on
 else
   # shutdown the RPi
   # this MUST end in a &
@@ -304,9 +304,9 @@ fi
 The Witty Pi software will run this script during boot, but before the Witty Pi
 has fully finished configuring a couple of its own things. This script will run
 the previous script, which will display an image and print the battery voltage.
-Afterward, it will check for the existence of the file `/boot/stay-on`. If this
-file exists, it will delete it and do nothing else. If the file does _not_
-exist, this script will cause the RPi to shutdown.
+Afterward, it will check for the existence of the file
+`/boot/firmware/stay-on`. If this file exists, it will delete it and do nothing
+else. If the file does _not_ exist, this script will cause the RPi to shutdown.
 
 However, the way it causes the RPi to shutdown is a little hacky. As I said,
 the Witty Pi software runs this script before it has fully finished setting
@@ -319,9 +319,9 @@ the Witty Pi software interprets as a shutdown command from the Witty Pi
 itself, and it runs the shutdown procedure. Seems hacky, but it's actually a
 recommended way to shutdown the RPi, according to the Witty Pi documentation.
 
-The `/boot/stay-on` file lets us easily prevent the automatic shutdown, should
-we ever want to ssh to the RPi to adjust something. See the "Maintenance"
-section below for the procedure.
+The `/boot/firmware/stay-on` file lets us easily prevent the automatic
+shutdown, should we ever want to ssh to the RPi to adjust something. See the
+"Maintenance" section below for the procedure.
 
 Now we need to make sure the Witty Pi has the right current time. Still as
 root, run the following:
@@ -431,9 +431,9 @@ Here's a photo of the back, once everything is mounted:
 ## Maintenance
 The `/root/wittypi/afterStartup.sh` script normally shuts down the RPi
 immediately after updating the screen. However, we setup the script to skip
-this automatic shutdown if a file called `/boot/stay-on` exists. This way, we
-can ssh into the RPi to do some maintenance or change things if we want. Here's
-the procedure:
+this automatic shutdown if a file called `/boot/firmware/stay-on` exists. This
+way, we can ssh into the RPi to do some maintenance or change things if we
+want. Here's the procedure:
 1. Disconnect the battery.
 2. Remove the SD card and connect it to a computer.
 3. Create an empty file called `stay-on` in the `boot` partition.
