@@ -49,7 +49,7 @@ next_image_id = int(re.search(r'\d+', images[-1]).group()) + 1 if len(images) > 
 photoprism_url = os.environ['PHOTOPRISM_URL']
 headers = {'X-Auth-Token': os.environ['PHOTOPRISM_TOKEN']}
 params = {
-    'q': 'landscape:yes',
+    'q': 'image:yes landscape:yes favorite:true panorama:no',
     'order': 'random',
     'count': 1,
     'public': 'true',

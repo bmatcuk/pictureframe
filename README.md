@@ -361,21 +361,23 @@ Everything below is based on this drawing of the Inky:
 ![Inky Impression 13.3" Drawing](inky-impression-13-3-drawing.webp)
 
 I ordered a custom frame from a company called Frame Destination, specifically
-[this frame]. But, any _wooden_ frame with a "rabbet" of around an inch plus
+[this frame]. But, any _wooden_ frame with a "rabbet" of roughly 1.1", plus
 space for any glass and/or matting that you're using will work. The "rabbet" is
-the depth of the frame, from the back to the lip that holds in the glass in the
-front. This particular frame has a rabbet of 1 3/8" - an inch for the
-electronics, a little more than 1/8" for the glass and matting, and a little
-more than 1/8" of extra space. The frame must be wooden because the mounting
-brackets (see below) use wood screws to fasten to the frame.
+the depth of the frame, from the back to the lip that holds the glass in the
+front. This particular frame has a rabbet of 1 3/8" - 1.1" for the electronics,
+a little more than 1/8" for the glass and matting, and a little less than 1/8"
+of extra space. The frame must be wooden because the mounting brackets (see
+below) use wood screws to fasten to the frame.
 
 According to the drawing, the screen's display area is 270.4mm x 202.8mm (ie,
 roughly 10 5/8" x 7 15/16"). I ordered the matting to have an overlap of 1/8"
 (ie, actual dimensions of the opening is 1/8" smaller on all four sides, making
 it 10 3/8" x 7 11/16") and one inch borders, making the total outside
 dimensions of the _mat_, and, hence, the _inside_ dimensions of the frame, 12
-3/8" x 9 11/16". NOTE: one inch borders is pretty much the smallest you can go,
-because the Inky's circuit board is larger than the screen itself.
+3/8" x 9 11/16". The frame arrived slightly bigger, however! With inside
+dimensions of 12 1/2" x 9 3/4". NOTE: one inch borders is pretty much the
+smallest you can go, because the Inky's circuit board is larger than the screen
+itself.
 
 Next, I designed and 3D printed some mounting brackets using [FreeCAD]. These
 mounting brackets use 4x M2x4 [heat set inserts] with 4x M2x6 [machine screws]
@@ -389,6 +391,15 @@ you. All of the relevant numbers to tweak are in the spreadsheet called
 "Dimensions". Note: in this spreadsheet, the words "left" and "right" are
 relative to the front of the Inky. Since you'll likely be looking at the
 mounting brackets from the back, left and right will be reversed.
+
+The final step is assembly: the heat set inserts actually hold the mounting
+brackets together. Lay the horizontal bars on top of the vertical bars and push
+the heat set insert through using a soldering iron until it is flush. You'll
+want to do this on a heat-proof surface. Once all of the heat set inserts are
+inserted and cooled, screw the Inky to the mounting bracket from the front side
+of the Inky. Then, place the whole assembly into your frame, ensure the Inky's
+screen is lined up properly, and screw the mounting brackets to the frame using
+wood screws.
 
 
 [extra long headers]: https://www.amazon.com/dp/B07DJY6HT8?ref=ppx_yo2ov_dt_b_fed_asin_title&th=1
