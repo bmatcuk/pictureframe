@@ -273,7 +273,7 @@ Now, as _root_, create a different file called `~/pictureframe.sh`:
 source wittypi/utilities.sh
 
 # update picture
-sudo -H -i -u <USER> /home/<USER>/pictureframe.sh
+sudo -H -u <USER> /home/<USER>/pictureframe.sh
 
 # get voltage
 if [ $(get_power_mode) -ne 0 ]; then

@@ -77,7 +77,7 @@ while len(images) < 6:
         resizedimage = ImageOps.fit(image, inky.resolution)
 
         # save the file
-        filename = '{0}_{1}.png'.format(next_image_id, uid)
+        filename = '{0:010}_{1}.png'.format(next_image_id, uid)
         print('Saving to ' + filename)
         resizedimage.save(os.path.join(image_dir, filename))
         images.append(filename)
