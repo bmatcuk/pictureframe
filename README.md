@@ -268,31 +268,14 @@ probably shouldn't trust randos from the internet), you could fork it and pull
 from your own repo, or you could just remove the `git pull` line from this
 script.
 
-Now, as _root_, create a different file called `~/pictureframe.sh`:
-```bash
-source wittypi/utilities.sh
-
-# update picture
-sudo -H -u <USER> /home/<USER>/pictureframe.sh
-
-# get voltage
-if [ $(get_power_mode) -ne 0 ]; then
-  vin=$(get_input_voltage)
-  echo "Vin: $(printf %.02f $vin)V"
-fi
-```
-
-...and make it executable (`chmod +x pictureframe.sh`). This script will run
-the previous script as your user, and then output the voltage of the battery so
-you can monitor how quickly it is depleting.
-
-Now, still as root, edit the file `~/wittypi/afterStartup.sh` and add the
+Now, as _root_, edit the file `~/wittypi/afterStartup.sh` and add the
 following:
 ```bash
 # display an image
-/root/pictureframe.sh
+sudo -H -u <USER> /home/<USER>/pictureframe.sh
 
 if [ -f /boot/firmware/stay-on ]; then
+  # don't shutdown, but delete this file
   rm /boot/firmware/stay-on
 else
   # shutdown the RPi
@@ -303,7 +286,7 @@ fi
 
 The Witty Pi software will run this script during boot, but before the Witty Pi
 has fully finished configuring a couple of its own things. This script will run
-the previous script, which will display an image and print the battery voltage.
+the previous script, which will display an image and download a new one.
 Afterward, it will check for the existence of the file
 `/boot/firmware/stay-on`. If this file exists, it will delete it and do nothing
 else. If the file does _not_ exist, this script will cause the RPi to shutdown.
@@ -428,6 +411,50 @@ Here's a photo of the back, once everything is mounted:
 ![Assembled Frame](back.jpg)
 
 
+## Some Logging Ideas
+In my personal setup, I'm using [healthchecks.io] to monitor all of my
+services, including my picture frame. So, I made the following changes:
+
+In `/root/wittpi/utilities.sh`, I added a function just above `log2file`:
+```bash
+clearlogfile()
+{
+  rm $wittypi_home/wittyPi.log
+}
+```
+
+And, at the top of `/root/wittypi/daemon.sh`, just before the first call to
+`log`, I added this line:
+```bash
+clearlogfile
+```
+
+This will clobber the WittyPi log file on every boot.
+
+Next, I created `/root/pictureframe.sh` with this content:
+```bash
+#!/bin/bash
+
+# output witty log
+cat /root/wittypi/wittyPi.log
+
+# update picture
+sudo -H -u <USER> /home/<USER>/pictureframe.sh
+```
+
+...and made it executable (`chmod +x /root/pictureframe.sh`). This will print
+the WittyPi log before running the script to update the display. The WittyPi
+log includes useful information such as the battery's voltage and the next
+scheduled boot time.
+
+Lastly, I updated `/root/wittypi/afterStartup.sh`. _Instead_ of running the
+script that updates the display directly (ie, the `sudo` line), it now runs
+`/root/pictureframe.sh` and captures the output. That output is then sent to my
+healthchecks instance so I can access those logs quickly and easily. Setting
+that up is a bit beyond the scope of this guide. But, you should be able to do
+something similar to capture logs in your preferred way.
+
+
 ## Maintenance
 The `/root/wittypi/afterStartup.sh` script normally shuts down the RPi
 immediately after updating the screen. However, we setup the script to skip
@@ -458,6 +485,7 @@ gpio -g mode 4 out
 [extra long headers]: https://www.amazon.com/dp/B07DJY6HT8?ref=ppx_yo2ov_dt_b_fed_asin_title&th=1
 [FreeCAD]: https://www.freecad.org/
 [heat set inserts]: https://www.amazon.com/dp/B0D41PW4GC
+[healthchecks.io]: https://healthchecks.io/
 [Inky Impression 13.3"]: https://shop.pimoroni.com/products/inky-impression-7-3?variant=55186435277179
 [LiIon 3.7V 6600mAh]: https://www.adafruit.com/product/353
 [machine screws]: https://www.amazon.com/dp/B0CFV28NZB
