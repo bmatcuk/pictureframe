@@ -89,12 +89,12 @@ if displaying_img:
 
     # wait for the screen to finish
     print('Waiting for screen to finish...')
-    timeout = 30.0
+    timeout = 40.0
     t_start = time.time()
     while inky._gpio.get_value(inky.busy_pin) == Value.INACTIVE:
         time.sleep(0.1)
         if time.time() - t_start > timeout:
-            warnings.warn(f"Busy Wait: Timed out after {timeout:0.2f}s")
+            print(f"Busy Wait: Timed out after {timeout:0.2f}s")
             break
     print('Waited {0}'.format(time.time() - t_start))
 
