@@ -95,7 +95,7 @@ if displaying_img:
         time.sleep(0.1)
         if time.time() - t_start > timeout:
             print(f"Busy Wait: Timed out after {timeout:0.2f}s")
-            break
+            sys.exit(1)
     print('Waited {0}'.format(time.time() - t_start))
 
 print('Done.')
