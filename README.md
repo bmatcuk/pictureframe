@@ -15,6 +15,29 @@ Skill requirements:
 * Some basic command line stuff.
 
 
+## Some Notes
+It's been a little over four months since I've built this picture frame and
+it's working great! I've configured the screen to update twice a day and the
+battery has, just now, reached 3.5V which is probably a good time to give it a
+recharge. Four months on a single charge is pretty good =)
+
+Every now and again (probably a handful of times in the last four months), the
+frame will fail to update the photo - I suspect it is because the Inky's
+controller is getting into a weird state due to the fact that the Witty Pi
+still applies a small voltage to the power rails even when "off". This problem
+is detailed a bit down below in the Software Setup section. When this happens,
+pull the battery for a couple seconds and reconnect. The photo should update in
+about 30s and you should be good to go for a while - until it happens again.
+
+But, that said, I've been unable to find a permanent fix to this problem. And,
+because there are always variations in physical electronics, there is a chance
+that the problem will be worse for other Inky + Witty Pi combinations. So,
+buyer-beware if you decide to build this.
+
+I've also noticed that the PhotoPrism "random" ordering, which this uses to
+display random images, isn't very random. I tend to get a lot of the same
+photos. I'll need to look into that at some point...
+
 ## Raspberry Pi Setup
 Using the [Raspberry Pi Imager], install the 64-bit Lite OS to an SD card. When
 asked, select the button to "configure options":
@@ -236,8 +259,9 @@ If you're sure you haven't skipped anything, check that you didn't plug the RPi
 in backward, or take the whole thing apart and check to make sure that you
 successfully severed the pin 17 trace on the Witty Pi.
 
-If everything looks good, I hate to say it, but: you're on your own. I spent
-weeks messing with this thing - it's a fiddly setup. Good luck.
+If everything looks good but it still isn't working, I hate to say it, but:
+you're on your own. I spent weeks messing with this thing - it's a fiddly
+setup. Good luck.
 
 
 ## Final Setup
